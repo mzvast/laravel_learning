@@ -3,11 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<container>
+<div class="container">
+	
 		@yield('content')
-	</container>
+</div>
 
 	@yield('footer')
 </body>
