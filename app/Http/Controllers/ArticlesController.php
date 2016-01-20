@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use Request;
+// use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Article;
 use Carbon\Carbon;
+use App\Http\Requests\CreateArticleRequest;
+
 class ArticlesController extends Controller
 {
     public function index()
@@ -28,9 +30,11 @@ class ArticlesController extends Controller
     	return view('articles.create');
     }
 
-    public function store()
+    public function store(CreateArticleRequest $request)//Request $request)
     {
-    	Article::create(Request::all());
+    	// $this->validate($request,['title'=>'required','body'=>'required']);
+
+    	Article::create($request->all());
 
     	return redirect('articles');
     }
