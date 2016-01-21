@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Article;
 use Carbon\Carbon;
 use App\Http\Requests\ArticleRequest;
-
+use Illuminate\Support\Facades\Auth;
 class ArticlesController extends Controller
 {
     public function index()
@@ -33,8 +33,9 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request)//Request $request)
     {
     	// $this->validate($request,['title'=>'required','body'=>'required']);
-
-    	Article::create($request->all());
+        $article = new Article($request->all());
+        Auth::user()->articles()->save($article);
+    	// Article::create($request->all());
 
     	return redirect('articles');
     }
