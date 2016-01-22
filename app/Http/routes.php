@@ -14,6 +14,9 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/', function () {
+    return 'Laravel 5';
+});
 Route::group(['middleware' => 'web'], function() {
 	Route::get('contact','PagesController@contact');
 	Route::get('about','PagesController@about');

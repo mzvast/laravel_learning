@@ -40,8 +40,12 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request)//Request $request)
     {
     	// $this->validate($request,['title'=>'required','body'=>'required']);
-        $article = new Article($request->all());
-        Auth::user()->articles()->save($article);
+        // $article = new Article($request->all());
+        // Auth::user()->articles()->save($article);
+        Auth::user()->articles()->create($request->all());
+        // \Session::flash('flash_message','Your article has been created!');
+        // \Session::flash('flash_message_important',true);
+        flash()->overlay('Your article has been created','Good Job');
     	return redirect('articles');
     }
 
