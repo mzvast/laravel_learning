@@ -5,5 +5,5 @@
 @stop
 
 @section('footer')
-	<script>alert('Contact from scripts')</script>
+	{{-- <script>alert('Contact from scripts')</script> --}}
 @stop

@@ -9,8 +9,14 @@ use App\Article;
 use Carbon\Carbon;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only'=>'create']);
+    }
     public function index()
     {
     	$articles = Article::latest('published_at')->published()->get();
@@ -21,12 +27,13 @@ class ArticlesController extends Controller
     	// dd('show');
     	$article = Article::findOrFail($id);
 
-    	dd($article->published_at);
+    	//dd($article->published_at);
     	return view('articles.show',compact('article'));
     }
 
     public function create()
     {
+
     	return view('articles.create');
     }
 
@@ -35,8 +42,6 @@ class ArticlesController extends Controller
     	// $this->validate($request,['title'=>'required','body'=>'required']);
         $article = new Article($request->all());
         Auth::user()->articles()->save($article);
-    	// Article::create($request->all());
-
     	return redirect('articles');
     }
 
