@@ -22,10 +22,10 @@ class ArticlesController extends Controller
     	$articles = Article::latest('published_at')->published()->get();
     	return view('articles.index',compact('articles'));
     }
-    public function show($id)
+    public function show($article)
     {
-    	// dd('show');
-    	$article = Article::findOrFail($id);
+    	//dd($id);
+    	//$article = Article::findOrFail($id);
 
     	//dd($article->published_at);
     	return view('articles.show',compact('article'));
