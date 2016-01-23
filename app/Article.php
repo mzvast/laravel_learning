@@ -28,13 +28,15 @@ class Article extends Model
     {
     	$this->attributes['published_at'] = Carbon::parse($date);
     }
-    /**
-     * An article is owned by a user
-     * @return [type] [description]
-     */
+    
     public function user()
     {
     	return $this->belongsTo('App\User');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
     }
 
 }
