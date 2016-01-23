@@ -33,31 +33,32 @@ class ArticlesController extends Controller
 
     public function create()
     {
-
-    	return view('articles.create');
+        $tags = \App\Tag::lists('name','id');
+    	return view('articles.create',compact('tags'));
     }
 
     public function store(ArticleRequest $request)//Request $request)
     {
-    	// $this->validate($request,['title'=>'required','body'=>'required']);
-        // $article = new Article($request->all());
-        // Auth::user()->articles()->save($article);
-        Auth::user()->articles()->create($request->all());
-        // \Session::flash('flash_message','Your article has been created!');
-        // \Session::flash('flash_message_important',true);
+        $article = Auth::user()->articles()->create($request->all());
+
+        $tagIds = $request->input('tag_list');
+
+        $article->tags()->attach($tagIds);
+
         flash()->overlay('Your article has been created','Good Job');
+
     	return redirect('articles');
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-    	$article = Article::findOrFail($id);
-    	return view('articles.edit',compact('article'));
+        $tags = \App\Tag::lists('name','id');
+    	return view('articles.edit',compact('article','tags'));
     }
 
-    public function update($id,ArticleRequest $request)
+    public function update(Article $article,ArticleRequest $request)
     {
-    	$article = Article::findOrFail($id);
+    	//$article = Article::findOrFail($id);
 
     	$article->update($request->all());
 
